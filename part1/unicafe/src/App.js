@@ -13,19 +13,42 @@ const FeedBack = (props) => {
   )
 }
 
+const Statistic = ({text, value}) => {
+  return (
+    <tr>
+      <th>{text}</th>
+      <th>{value}</th>
+    </tr>
+  )
+}
+
 const Statistics = ({good, neutral, bad}) => {
   const total = () => good+neutral+bad;
-  const average= () => total()/3;
-  return (
-    <div>
-      <h1>statistics</h1> 
-      <p>good {good}</p> 
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {total()}</p>
-      <p>average {average()}</p>
-    </div>
-  )
+  const average= () => (good-bad)/total();
+  const positive = () => good/total();
+  if(good!==0 || neutral !== 0 || bad !== 0) {
+    return (
+      <div>
+        <h1>statistics</h1>
+        <table>
+          <tbody>
+          <Statistic text="good" value={good} />
+          <Statistic text="neutral" value={neutral} />
+          <Statistic text="bad" value={bad} />
+          <Statistic text="all" value={total()} />
+          <Statistic text="average" value={average()} />
+          <Statistic text="positive" value={positive()} />
+          </tbody>
+        </table>
+      </div>
+    ) } else {
+      return (
+        <div>
+          <h1>statistics</h1>
+          <p>No feedback given</p>
+        </div>
+      )
+    } 
 }
 
 
